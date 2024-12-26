@@ -3,12 +3,13 @@ import React from "react";
 import { clearCart } from "../redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../redux/store";
 
 const OrderSummary = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { tax, taxRate, grandTotal, totalPrice, selectedItems } =
-    useAppSelector((store) => store.cart);
+    useAppSelector((store: RootState) => store.cart);
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -18,27 +19,35 @@ const OrderSummary = () => {
       <table className="table-auto w-full text-left">
         <thead>
           <tr>
-            <th className="text-3xl font-bold text-dark pb-4">
-              Order Summary
-            </th>
+            <th className="text-3xl font-bold text-dark pb-4">Order Summary</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td className="text-dark mt-4">Selected Items:</td>
-            <td className="text-dark mt-4 text-right font-semibold">{selectedItems}</td>
+            <td className="text-dark mt-4 text-right font-semibold">
+              {selectedItems}
+            </td>
           </tr>
           <tr>
             <td className="text-dark">Total Price:</td>
-            <td className="text-dark text-right font-semibold">${totalPrice.toFixed(2)}</td>
+            <td className="text-dark text-right font-semibold">
+              ${totalPrice.toFixed(2)}
+            </td>
           </tr>
           <tr>
             <td className="text-dark">Tax ({taxRate * 100}%):</td>
-            <td className="text-dark text-right font-semibold">${tax.toFixed(3)}</td>
+            <td className="text-dark text-right font-semibold">
+              ${tax.toFixed(3)}
+            </td>
           </tr>
           <tr>
-            <td className="text-xl font-semibold text-dark pt-4">Grand Total:</td>
-            <td className="text-xl font-semibold text-dark mt-2 text-right">${grandTotal.toFixed(3)}</td>
+            <td className="text-xl font-semibold text-dark pt-4">
+              Grand Total:
+            </td>
+            <td className="text-xl font-semibold text-dark mt-2 text-right">
+              ${grandTotal.toFixed(3)}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -58,8 +67,7 @@ const OrderSummary = () => {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            navigate("/checkout")
-
+            navigate("/checkout");
           }}
           className="bg-black px-3 py-2 text-white  mt-2 rounded-md w-full text-xs flex justify-between items-center"
         >
